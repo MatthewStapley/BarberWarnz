@@ -5,12 +5,20 @@ import ParallaxImage from "../ui/ParallaxImage";
 import Button from "../ui/Button.astro";
 import { siteConfig } from "../../lib/site-config";
 import heroSource from "../../assets/photos/hero.jpg";
+import logoMarkSource from "../../assets/photos/callum_logo_mark.png";
 
 const hero = await getImage({
   src: heroSource,
   width: 1080,
   format: "webp",
   quality: 82,
+});
+
+const logoMark = await getImage({
+  src: logoMarkSource,
+  width: 1000,
+  format: "webp",
+  quality: 90,
 });
 ---
 
@@ -26,6 +34,14 @@ const hero = await getImage({
       priority
       bare
     />
+
+    {/* Barber Warnz mark blended into the photo, behind the copy */}
+    <div
+      class="pointer-events-none absolute -top-[8%] -right-[18%] h-[65%] w-[85%] opacity-50 mix-blend-screen md:-top-[10%] md:right-[-8%] md:h-[85%] md:w-[55%]"
+      style="mask-image: radial-gradient(circle at 60% 40%, black 0%, black 30%, transparent 72%); -webkit-mask-image: radial-gradient(circle at 60% 40%, black 0%, black 30%, transparent 72%);"
+    >
+      <img src={logoMark.src} width={logoMark.attributes.width} height={logoMark.attributes.height} alt="" aria-hidden="true" class="h-full w-full object-contain" />
+    </div>
 
     <div class="absolute inset-0 bg-gradient-to-t from-(--color-bg) via-(--color-bg)/35 to-transparent"></div>
     <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-(--color-bg)/70 to-transparent"></div>
