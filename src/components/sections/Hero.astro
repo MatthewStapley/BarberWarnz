@@ -1,21 +1,36 @@
 ---
+import { getImage } from "astro:assets";
 import RevealText from "../ui/RevealText";
+import ParallaxImage from "../ui/ParallaxImage";
 import Button from "../ui/Button.astro";
 import { siteConfig } from "../../lib/site-config";
+import heroSource from "../../assets/photos/hero.jpg";
+
+const hero = await getImage({
+  src: heroSource,
+  width: 1080,
+  format: "webp",
+  quality: 82,
+});
 ---
 
-<section class="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
-  <!-- Full-bleed placeholder photography, will become the hero shot -->
-  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-(--color-bg-elevated) via-(--color-bg) to-(--color-bg)">
-    <div class="absolute inset-0 flex items-center justify-center">
-      <span class="text-xs uppercase tracking-[0.3em] text-(--color-ink-faint)">
-        Hero photography placeholder — full-bleed, 1920×1200+
-      </span>
-    </div>
-    <div class="absolute inset-0 bg-gradient-to-t from-(--color-bg) via-(--color-bg)/20 to-transparent"></div>
+<section class="relative isolate flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
+  <div class="absolute inset-0">
+    <ParallaxImage
+      client:load
+      src={hero.src}
+      width={hero.attributes.width}
+      height={hero.attributes.height}
+      alt="Close detail of a Barber Warnz cut in progress"
+      ratio="h-full"
+      priority
+      bare
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-(--color-bg) via-(--color-bg)/35 to-transparent"></div>
+    <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-(--color-bg)/70 to-transparent"></div>
   </div>
 
-  <div class="mx-auto w-full max-w-(--container-max) px-6 pb-20 md:px-10 md:pb-28">
+  <div class="relative mx-auto w-full max-w-(--container-max) px-6 pb-20 md:px-10 md:pb-28">
     <p class="mb-5 text-xs font-medium uppercase tracking-[0.3em] text-(--color-accent)">
       {siteConfig.contact.address.split(",")[0] /* placeholder location line */}
     </p>

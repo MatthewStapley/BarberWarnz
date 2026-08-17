@@ -9,7 +9,7 @@ import { siteConfig } from "../../lib/site-config";
   <Container>
     <SectionHeading eyebrow="Reviews" title="Trusted by regulars." />
 
-    <RevealOnScroll client:visible stagger class="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+    <RevealOnScroll client:visible stagger wrapperClass="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
       {siteConfig.reviews.map((review) => (
         <div class="rounded-sm border border-(--color-line) bg-(--color-bg-elevated) p-8">
           <p class="text-(--color-accent)">★★★★★</p>

@@ -10,7 +10,7 @@ import { siteConfig } from "../../lib/site-config";
   <Container>
     <SectionHeading eyebrow="Services" title="What we do." />
 
-    <RevealOnScroll client:visible stagger class="divide-y divide-(--color-line) border-y border-(--color-line)">
+    <RevealOnScroll client:visible stagger wrapperClass="divide-y divide-(--color-line) border-y border-(--color-line)">
       {siteConfig.services.map((service) => (
         <div class="flex items-center justify-between gap-6 py-6">
           <div>

@@ -1,17 +1,24 @@
 ---
+import { getImage } from "astro:assets";
 import Container from "../ui/Container.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import ParallaxImage from "../ui/ParallaxImage";
 import RevealOnScroll from "../ui/RevealOnScroll";
+import aboutSource from "../../assets/photos/about.jpg";
+
+const about = await getImage({ src: aboutSource, width: 900, format: "webp", quality: 82 });
 ---
 
 <section id="about" class="py-(--spacing-section) md:py-(--spacing-section-lg)">
   <Container class="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-20">
     <ParallaxImage
       client:visible
-      label="Barbershop interior / craft shot placeholder"
+      src={about.src}
+      width={about.attributes.width}
+      height={about.attributes.height}
+      alt="A Barber Warnz barber finishing a client's cut"
       ratio="aspect-[4/5]"
-      class="order-1 md:order-none"
+      wrapperClass="order-1 md:order-none"
     />
 
     <div>

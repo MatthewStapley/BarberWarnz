@@ -1,14 +1,32 @@
 ---
+import { getImage } from "astro:assets";
 import Container from "../ui/Container.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import ParallaxImage from "../ui/ParallaxImage";
 
+import result1 from "../../assets/photos/gallery-result-1.jpg";
+import result2 from "../../assets/photos/gallery-result-2.jpg";
+import result3 from "../../assets/photos/gallery-result-3.jpg";
+import result4 from "../../assets/photos/gallery-result-4.jpg";
+import process1 from "../../assets/photos/gallery-process-1.jpg";
+import process2 from "../../assets/photos/gallery-process-2.jpg";
+import process3 from "../../assets/photos/gallery-process-3.jpg";
+import process4 from "../../assets/photos/gallery-process-4.jpg";
+
 const tiles = [
-  { label: "Gallery shot 01", ratio: "aspect-[3/4]", span: "" },
-  { label: "Gallery shot 02", ratio: "aspect-[3/4]", span: "sm:translate-y-8" },
-  { label: "Gallery shot 03", ratio: "aspect-[3/4]", span: "" },
-  { label: "Gallery shot 04", ratio: "aspect-[3/4]", span: "sm:translate-y-8" },
+  { source: result1, alt: "Finished fade with a custom line design", ratio: "aspect-[3/4]", span: "" },
+  { source: process1, alt: "Barber Warnz barber mid-cut", ratio: "aspect-[3/4]", span: "sm:translate-y-8" },
+  { source: result2, alt: "Finished fade with a side hair-line design", ratio: "aspect-[3/4]", span: "" },
+  { source: process2, alt: "Detail of a fresh fade being finished with a comb", ratio: "aspect-[3/4]", span: "sm:translate-y-8" },
+  { source: result3, alt: "Finished cut with a wave line detail", ratio: "aspect-[3/4]", span: "" },
+  { source: process3, alt: "Scissor work detail on a fresh cut", ratio: "aspect-[3/4]", span: "sm:translate-y-8" },
+  { source: result4, alt: "Finished fade with a neckline design", ratio: "aspect-[3/4]", span: "" },
+  { source: process4, alt: "Close detail of clipper work at the temple", ratio: "aspect-[3/4]", span: "sm:translate-y-8" },
 ];
+
+const images = await Promise.all(
+  tiles.map((tile) => getImage({ src: tile.source, width: 640, format: "webp", quality: 80 }))
+);
 ---
 
 <section id="gallery" class="py-(--spacing-section) md:py-(--spacing-section-lg)">
@@ -16,12 +34,15 @@ const tiles = [
     <SectionHeading eyebrow="Gallery" title="The work speaks first." />
 
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-      {tiles.map((tile) => (
+      {tiles.map((tile, i) => (
         <ParallaxImage
           client:visible
-          label={tile.label}
+          src={images[i].src}
+          width={images[i].attributes.width}
+          height={images[i].attributes.height}
+          alt={tile.alt}
           ratio={tile.ratio}
-          class={tile.span}
+          wrapperClass={tile.span}
         />
       ))}
     </div>

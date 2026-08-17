@@ -1,0 +1,51 @@
+---
+import { getImage } from "astro:assets";
+import Container from "../ui/Container.astro";
+import RevealText from "../ui/RevealText";
+import RevealOnScroll from "../ui/RevealOnScroll";
+import ParallaxImage from "../ui/ParallaxImage";
+import introSource1 from "../../assets/photos/intro-1.jpg";
+import introSource2 from "../../assets/photos/intro-2.jpg";
+
+const [featureA, featureB] = await Promise.all([
+  getImage({ src: introSource1, width: 900, format: "webp", quality: 82 }),
+  getImage({ src: introSource2, width: 700, format: "webp", quality: 82 }),
+]);
+---
+
+<section class="py-(--spacing-section) md:py-(--spacing-section-lg)">
+  <Container>
+    <div class="max-w-2xl">
+      <h2 class="font-(family-name:--font-display) text-4xl leading-[1.05] text-(--color-ink) sm:text-5xl md:text-6xl">
+        <RevealText text="Every cut is a small act of precision." client:visible />
+      </h2>
+      <RevealOnScroll client:visible wrapperClass="mt-6">
+        <p class="max-w-md text-base leading-relaxed text-(--color-ink-muted) md:text-lg">
+          PLACEHOLDER copy — a short editorial line introducing the barbers,
+          the standard, and what a visit to Barber Warnz actually feels like.
+        </p>
+      </RevealOnScroll>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-12 md:mt-20 md:gap-8">
+      <ParallaxImage
+        client:visible
+        src={featureA.src}
+        width={featureA.attributes.width}
+        height={featureA.attributes.height}
+        alt="Barber Warnz barber mid-cut, focused on the fade"
+        ratio="aspect-[4/5]"
+        wrapperClass="sm:col-span-7"
+      />
+      <ParallaxImage
+        client:visible
+        src={featureB.src}
+        width={featureB.attributes.width}
+        height={featureB.attributes.height}
+        alt="Finished haircut detail at Barber Warnz"
+        ratio="aspect-[4/5]"
+        wrapperClass="sm:col-span-5 sm:translate-y-10"
+      />
+    </div>
+  </Container>
+</section>
