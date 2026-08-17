@@ -1,0 +1,29 @@
+---
+import Container from "../ui/Container.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import ParallaxImage from "../ui/ParallaxImage";
+
+const tiles = [
+  { label: "Gallery shot 01", ratio: "aspect-[3/4]", span: "" },
+  { label: "Gallery shot 02", ratio: "aspect-[3/4]", span: "sm:translate-y-8" },
+  { label: "Gallery shot 03", ratio: "aspect-[3/4]", span: "" },
+  { label: "Gallery shot 04", ratio: "aspect-[3/4]", span: "sm:translate-y-8" },
+];
+---
+
+<section id="gallery" class="py-(--spacing-section) md:py-(--spacing-section-lg)">
+  <Container>
+    <SectionHeading eyebrow="Gallery" title="The work speaks first." />
+
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+      {tiles.map((tile) => (
+        <ParallaxImage
+          client:visible
+          label={tile.label}
+          ratio={tile.ratio}
+          class={tile.span}
+        />
+      ))}
+    </div>
+  </Container>
+</section>

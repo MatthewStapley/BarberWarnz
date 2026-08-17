@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/*
+  Design tokens.
+  This is the file to edit when forking this project for a new client:
+  swap the colors/fonts here and the whole site re-themes.
+*/
+@theme {
+  /* Colors — premium dark palette */
+  --color-bg: #0a0a0b;
+  --color-bg-elevated: #131315;
+  --color-bg-inverse: #f3f1ec;
+  --color-ink: #f3f1ec;
+  --color-ink-muted: #a6a4a0;
+  --color-ink-faint: #6f6d6a;
+  --color-accent: #b08d57;
+  --color-accent-soft: #d9c39a;
+  --color-line: #232326;
+
+  /* Type */
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Layout */
+  --spacing-section: 6rem;
+  --spacing-section-lg: 9rem;
+  --container-max: 88rem;
+
+  /* Motion timings — kept as tokens so React/Framer Motion code
+     (see src/lib/motion.ts) and pure-CSS transitions stay in sync */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 300ms;
+  --duration-medium: 600ms;
+  --duration-slow: 900ms;
+}
+
+html {
+  background-color: var(--color-bg);
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Respect users who've asked for reduced motion — overrides Framer Motion too */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,32 @@
+---
+import Container from "../ui/Container.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import ParallaxImage from "../ui/ParallaxImage";
+import RevealOnScroll from "../ui/RevealOnScroll";
+---
+
+<section id="about" class="py-(--spacing-section) md:py-(--spacing-section-lg)">
+  <Container class="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-20">
+    <ParallaxImage
+      client:visible
+      label="Barbershop interior / craft shot placeholder"
+      ratio="aspect-[4/5]"
+      class="order-1 md:order-none"
+    />
+
+    <div>
+      <SectionHeading eyebrow="The Shop" title="Craft, not conveyor belts." />
+      <RevealOnScroll client:visible>
+        <p class="max-w-md text-base leading-relaxed text-(--color-ink-muted) md:text-lg">
+          PLACEHOLDER copy — replace with the real Barber Warnz story: the chairs,
+          the team, the neighbourhood, what makes a visit feel different here.
+          Two to three short paragraphs works best for this layout.
+        </p>
+        <p class="mt-4 max-w-md text-base leading-relaxed text-(--color-ink-muted) md:text-lg">
+          PLACEHOLDER — second paragraph. Keep it editorial and confident rather
+          than sales-y; the photography should carry most of the persuasion.
+        </p>
+      </RevealOnScroll>
+    </div>
+  </Container>
+</section>

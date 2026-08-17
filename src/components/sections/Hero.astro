@@ -1,0 +1,33 @@
+---
+import RevealText from "../ui/RevealText";
+import Button from "../ui/Button.astro";
+import { siteConfig } from "../../lib/site-config";
+---
+
+<section class="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
+  <!-- Full-bleed placeholder photography, will become the hero shot -->
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-(--color-bg-elevated) via-(--color-bg) to-(--color-bg)">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <span class="text-xs uppercase tracking-[0.3em] text-(--color-ink-faint)">
+        Hero photography placeholder — full-bleed, 1920×1200+
+      </span>
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-t from-(--color-bg) via-(--color-bg)/20 to-transparent"></div>
+  </div>
+
+  <div class="mx-auto w-full max-w-(--container-max) px-6 pb-20 md:px-10 md:pb-28">
+    <p class="mb-5 text-xs font-medium uppercase tracking-[0.3em] text-(--color-accent)">
+      {siteConfig.contact.address.split(",")[0] /* placeholder location line */}
+    </p>
+    <h1 class="max-w-3xl font-(family-name:--font-display) text-5xl leading-[1.02] text-(--color-ink) sm:text-6xl md:text-7xl lg:text-8xl">
+      <RevealText text={siteConfig.business.name} client:visible />
+    </h1>
+    <p class="mt-6 max-w-md text-base text-(--color-ink-muted) md:text-lg">
+      {siteConfig.business.description}
+    </p>
+    <div class="mt-9 flex flex-wrap gap-4">
+      <Button href={siteConfig.booking.url} target="_blank">{siteConfig.booking.label}</Button>
+      <Button href="#services" variant="outline">View Services</Button>
+    </div>
+  </div>
+</section>

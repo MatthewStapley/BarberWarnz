@@ -1,0 +1,22 @@
+---
+import RevealText from "./RevealText";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  align?: "left" | "center";
+  class?: string;
+}
+const { eyebrow, title, align = "left", class: className = "" } = Astro.props;
+---
+
+<div class:list={["mb-12 md:mb-16", align === "center" ? "text-center" : "text-left", className]}>
+  {eyebrow && (
+    <p class="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-(--color-accent)">
+      {eyebrow}
+    </p>
+  )}
+  <h2 class="font-(family-name:--font-display) text-4xl leading-[1.05] text-(--color-ink) sm:text-5xl md:text-6xl">
+    <RevealText text={title} client:visible />
+  </h2>
+</div>

@@ -1,0 +1,14 @@
+---
+import { siteConfig } from "../../lib/site-config";
+---
+
+<div class="fixed inset-x-0 bottom-0 z-40 border-t border-(--color-line) bg-(--color-bg)/95 px-6 py-4 backdrop-blur-md md:hidden">
+  <a
+    href={siteConfig.booking.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex w-full items-center justify-center rounded-full bg-(--color-accent) px-6 py-3.5 text-sm font-medium text-(--color-bg)"
+  >
+    {siteConfig.booking.label} — {siteConfig.business.shortName}
+  </a>
+</div>

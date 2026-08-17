@@ -1,0 +1,23 @@
+---
+// Stand-in for real photography. Swap for <Image /> (astro:assets) once
+// the client's shoot is delivered — same aspect-ratio/rounded/class props
+// will carry over.
+interface Props {
+  label?: string;
+  ratio?: string;
+  class?: string;
+}
+const { label = "Image placeholder", ratio = "aspect-[4/5]", class: className = "" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "relative flex items-center justify-center overflow-hidden rounded-sm border border-(--color-line) bg-gradient-to-br from-(--color-bg-elevated) to-(--color-bg)",
+    ratio,
+    className,
+  ]}
+>
+  <span class="px-4 text-center text-xs uppercase tracking-[0.2em] text-(--color-ink-faint)">
+    {label}
+  </span>
+</div>

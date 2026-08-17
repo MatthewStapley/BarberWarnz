@@ -1,0 +1,32 @@
+---
+import Container from "../ui/Container.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import PlaceholderImage from "../ui/PlaceholderImage.astro";
+import Button from "../ui/Button.astro";
+import RevealOnScroll from "../ui/RevealOnScroll";
+import { siteConfig } from "../../lib/site-config";
+---
+
+<section id="location" class="border-t border-(--color-line) py-(--spacing-section) md:py-(--spacing-section-lg)">
+  <Container class="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-20">
+    <div>
+      <SectionHeading eyebrow="Location" title="Come find us." />
+      <RevealOnScroll client:visible class="space-y-6 text-(--color-ink-muted)">
+        <p>{siteConfig.contact.address}</p>
+        <ul class="space-y-1 text-sm">
+          {siteConfig.hours.map((h) => (
+            <li class="flex justify-between gap-8 border-b border-(--color-line) py-2 max-w-xs">
+              <span>{h.day}</span>
+              <span class="text-(--color-ink-faint)">{h.time}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="pt-2">
+          <Button href={siteConfig.booking.url} target="_blank">{siteConfig.booking.label}</Button>
+        </div>
+      </RevealOnScroll>
+    </div>
+
+    <PlaceholderImage label="Map embed placeholder" ratio="aspect-square" />
+  </Container>
+</section>

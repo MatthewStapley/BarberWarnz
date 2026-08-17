@@ -1,0 +1,31 @@
+---
+import Container from "../ui/Container.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import Button from "../ui/Button.astro";
+import RevealOnScroll from "../ui/RevealOnScroll";
+import { siteConfig } from "../../lib/site-config";
+---
+
+<section id="services" class="border-t border-(--color-line) py-(--spacing-section) md:py-(--spacing-section-lg)">
+  <Container>
+    <SectionHeading eyebrow="Services" title="What we do." />
+
+    <RevealOnScroll client:visible stagger class="divide-y divide-(--color-line) border-y border-(--color-line)">
+      {siteConfig.services.map((service) => (
+        <div class="flex items-center justify-between gap-6 py-6">
+          <div>
+            <p class="font-(family-name:--font-display) text-xl text-(--color-ink) sm:text-2xl">
+              {service.name}
+            </p>
+            <p class="mt-1 text-sm text-(--color-ink-faint)">{service.duration}</p>
+          </div>
+          <p class="shrink-0 text-lg text-(--color-accent)">{service.price}</p>
+        </div>
+      ))}
+    </RevealOnScroll>
+
+    <div class="mt-12 flex justify-center">
+      <Button href={siteConfig.booking.url} target="_blank">{siteConfig.booking.label}</Button>
+    </div>
+  </Container>
+</section>
