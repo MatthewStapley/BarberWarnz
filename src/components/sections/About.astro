@@ -4,6 +4,7 @@ import Container from "../ui/Container.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import ParallaxImage from "../ui/ParallaxImage";
 import RevealOnScroll from "../ui/RevealOnScroll";
+import { siteConfig } from "../../lib/site-config";
 import aboutSource from "../../assets/photos/about.jpg";
 
 const about = await getImage({ src: aboutSource, width: 900, format: "webp", quality: 82 });
@@ -16,22 +17,22 @@ const about = await getImage({ src: aboutSource, width: 900, format: "webp", qua
       src={about.src}
       width={about.attributes.width}
       height={about.attributes.height}
-      alt="A Barber Warnz barber finishing a client's cut"
+      alt="Callum Warnes finishing a client's cut at Barber Warnz"
       ratio="aspect-[4/5]"
       wrapperClass="order-1 md:order-none"
     />
 
     <div>
-      <SectionHeading eyebrow="The Shop" title="Craft, not conveyor belts." />
+      <SectionHeading eyebrow="Meet Your Barber" title={`${siteConfig.barber.name}, Barber Warnz.`} />
       <RevealOnScroll client:visible>
         <p class="max-w-md text-base leading-relaxed text-(--color-ink-muted) md:text-lg">
-          PLACEHOLDER copy — replace with the real Barber Warnz story: the chairs,
-          the team, the neighbourhood, what makes a visit feel different here.
-          Two to three short paragraphs works best for this layout.
+          Callum cuts hair at {siteConfig.contact.shortLocation} — a personalised,
+          one-to-one setup with no rush and no queue of chairs. Just a proper
+          conversation and a precise fade, in a relaxed, private setting.
         </p>
         <p class="mt-4 max-w-md text-base leading-relaxed text-(--color-ink-muted) md:text-lg">
-          PLACEHOLDER — second paragraph. Keep it editorial and confident rather
-          than sales-y; the photography should carry most of the persuasion.
+          It shows: {siteConfig.stats.rating} stars from {siteConfig.stats.reviewCount} Booksy
+          reviews, and regulars who've been coming back for years.
         </p>
       </RevealOnScroll>
     </div>

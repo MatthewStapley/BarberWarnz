@@ -18,10 +18,14 @@ const year = new Date().getFullYear();
 
     <div class="grid grid-cols-2 gap-10 sm:grid-cols-3">
       <div>
-        <p class="mb-3 text-xs uppercase tracking-[0.2em] text-(--color-ink-faint)">Contact</p>
+        <p class="mb-3 text-xs uppercase tracking-[0.2em] text-(--color-ink-faint)">Find Us</p>
         <ul class="space-y-2 text-sm text-(--color-ink-muted)">
-          <li>{siteConfig.contact.phone}</li>
-          <li>{siteConfig.contact.email}</li>
+          <li>{siteConfig.contact.address}</li>
+          <li>
+            <a href={siteConfig.booking.url} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-(--color-ink)">
+              Book on Booksy
+            </a>
+          </li>
         </ul>
       </div>
       <div>
@@ -36,7 +40,7 @@ const year = new Date().getFullYear();
         <p class="mb-3 text-xs uppercase tracking-[0.2em] text-(--color-ink-faint)">Follow</p>
         <ul class="space-y-2 text-sm text-(--color-ink-muted)">
           {siteConfig.social.map((item) => (
-            <li><a href={item.href} class="transition-colors hover:text-(--color-ink)">{item.label}</a></li>
+            <li><a href={item.href} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-(--color-ink)">{item.label}</a></li>
           ))}
         </ul>
       </div>

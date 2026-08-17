@@ -2,12 +2,17 @@
 import Container from "../ui/Container.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import RevealOnScroll from "../ui/RevealOnScroll";
+import Button from "../ui/Button.astro";
 import { siteConfig } from "../../lib/site-config";
 ---
 
 <section id="reviews" class="border-t border-(--color-line) py-(--spacing-section) md:py-(--spacing-section-lg)">
   <Container>
     <SectionHeading eyebrow="Reviews" title="Trusted by regulars." />
+    <p class="-mt-8 mb-12 text-sm text-(--color-ink-muted) md:-mt-10 md:mb-16">
+      <span class="text-(--color-accent)">★ {siteConfig.stats.rating}</span>
+      {" "}— {siteConfig.stats.reviewCount} reviews on Booksy
+    </p>
 
     <RevealOnScroll client:visible stagger wrapperClass="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
       {siteConfig.reviews.map((review) => (
@@ -16,9 +21,15 @@ import { siteConfig } from "../../lib/site-config";
           <p class="mt-4 text-base leading-relaxed text-(--color-ink-muted)">
             "{review.quote}"
           </p>
-          <p class="mt-6 text-sm text-(--color-ink-faint)">— {review.author}</p>
+          <p class="mt-6 text-sm text-(--color-ink-faint)">— {review.author}, {review.service}</p>
         </div>
       ))}
     </RevealOnScroll>
+
+    <div class="mt-12 flex justify-center">
+      <Button href={siteConfig.booking.url} target="_blank" variant="outline">
+        Read All {siteConfig.stats.reviewCount} Reviews
+      </Button>
+    </div>
   </Container>
 </section>

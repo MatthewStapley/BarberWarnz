@@ -2,39 +2,57 @@
 // Forking this site for a new client should mean editing this file
 // (plus the theme tokens in src/styles/global.css) and swapping images/copy —
 // not touching component internals.
+//
+// Business facts below were verified directly against:
+// - Booksy: https://booksy.com/en-gb/133690_barber-warnz_barber_794909_southampton
+// - Instagram: https://www.instagram.com/barber_warnz/
+// Anything not confirmed on either source is left as an explicit placeholder.
 
 export const siteConfig = {
   business: {
     name: "Barber Warnz",
     shortName: "Warnz",
-    tagline: "PLACEHOLDER — Premium grooming, [City]",
+    tagline: "Barber in Southampton",
+    // Adapted from Barber Warnz's own Booksy "About Us" copy.
     description:
-      "PLACEHOLDER description — modern barbering with old-school craft. Replace with final client copy.",
+      "Personalised fades, cuts and beard trims in a relaxed, one-to-one setting at MEDUSA, Southampton — rated 5.0 from 174 Booksy reviews.",
+  },
+
+  barber: {
+    name: "Callum Warnes",
   },
 
   booking: {
-    // Replace with the real Booksy business URL.
-    url: "https://booksy.com/en-us/PLACEHOLDER",
+    url: "https://booksy.com/en-gb/133690_barber-warnz_barber_794909_southampton#ba_s=sr_1",
     label: "Book Now",
   },
 
+  stats: {
+    rating: "5.0",
+    reviewCount: 174,
+  },
+
   contact: {
-    phone: "PLACEHOLDER — 00000 000000",
-    email: "PLACEHOLDER@example.com",
-    address: "PLACEHOLDER — 1 Example Street, City, Postcode",
+    // Not publicly listed on Booksy or Instagram — direct contact only via Booksy/Instagram.
+    phone: null as string | null,
+    email: null as string | null,
+    address: "MEDUSA, 15 Carlton Place, Southampton, SO15 2DY",
+    shortLocation: "MEDUSA, Southampton",
+    // Google Maps search link built from the verified address above — no API key needed.
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=MEDUSA+15+Carlton+Place+Southampton+SO15+2DY",
   },
 
   hours: [
-    { day: "Mon – Fri", time: "09:00 – 19:00 (placeholder)" },
-    { day: "Saturday", time: "09:00 – 17:00 (placeholder)" },
-    { day: "Sunday", time: "Closed (placeholder)" },
+    { day: "Monday", time: "09:00 – 18:30" },
+    { day: "Tuesday", time: "09:00 – 18:30" },
+    { day: "Wednesday", time: "09:00 – 18:30" },
+    { day: "Thursday", time: "09:00 – 20:00" },
+    { day: "Friday", time: "09:00 – 20:00" },
+    { day: "Saturday", time: "08:00 – 15:00" },
+    { day: "Sunday", time: "Closed" },
   ],
 
-  social: [
-    { label: "Instagram", href: "#" },
-    { label: "TikTok", href: "#" },
-    { label: "Facebook", href: "#" },
-  ],
+  social: [{ label: "Instagram", href: "https://www.instagram.com/barber_warnz/" }],
 
   nav: [
     { label: "Services", href: "#services" },
@@ -43,27 +61,35 @@ export const siteConfig = {
     { label: "Location", href: "#location" },
   ],
 
+  // Popular services shown on-site. Full list (14 services incl. student
+  // pricing) lives on Booksy — see servicesNote below.
   services: [
-    { name: "Signature Haircut", duration: "45 min", price: "£XX" },
-    { name: "Skin Fade", duration: "45 min", price: "£XX" },
-    { name: "Beard Sculpt", duration: "30 min", price: "£XX" },
-    { name: "Hot Towel Shave", duration: "30 min", price: "£XX" },
-    { name: "Cut & Beard Combo", duration: "70 min", price: "£XX" },
-    { name: "Junior Cut", duration: "30 min", price: "£XX" },
+    { name: "Skin Fade", duration: "30 min", price: "£28" },
+    { name: "Haircut", duration: "25 min", price: "£24" },
+    { name: "Skin Fade & Beard", duration: "45 min", price: "£34" },
+    { name: "Haircut & Beard", duration: "40 min", price: "£30" },
+    { name: "Restyle", duration: "40 min", price: "£30" },
+    { name: "Beard Trim", duration: "15 min", price: "£10" },
   ],
+  servicesNote: "Student and OAP pricing available — see the full list on Booksy.",
 
+  // A small curated selection of genuine Booksy reviews (verbatim quotes).
   reviews: [
     {
-      quote: "PLACEHOLDER review — replace with real client testimonial.",
-      author: "Placeholder Name",
+      quote:
+        "Top haircut from a top lad. Drink on arrival, great music on and has 10/10 football knowledge. Easy choice.",
+      author: "Kerr",
+      service: "Haircut",
     },
     {
-      quote: "PLACEHOLDER review — replace with real client testimonial.",
-      author: "Placeholder Name",
+      quote: "Cut my hair for 3 years never a bad trim, top barber and top lad.",
+      author: "Evan",
+      service: "Skin fade",
     },
     {
-      quote: "PLACEHOLDER review — replace with real client testimonial.",
-      author: "Placeholder Name",
+      quote: "Great trim, and Callum is a top fella. Will defo be back.",
+      author: "Matthew",
+      service: "Skin fade & Beard",
     },
   ],
 } as const;

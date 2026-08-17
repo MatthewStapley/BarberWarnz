@@ -32,7 +32,7 @@ const hero = await getImage({
 
   <div class="relative mx-auto w-full max-w-(--container-max) px-6 pb-20 md:px-10 md:pb-28">
     <p class="mb-5 text-xs font-medium uppercase tracking-[0.3em] text-(--color-accent)">
-      {siteConfig.contact.address.split(",")[0] /* placeholder location line */}
+      {siteConfig.contact.shortLocation}
     </p>
     <h1 class="max-w-3xl font-(family-name:--font-display) text-5xl leading-[1.02] text-(--color-ink) sm:text-6xl md:text-7xl lg:text-8xl">
       <RevealText text={siteConfig.business.name} client:visible />

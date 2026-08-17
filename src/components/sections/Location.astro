@@ -12,7 +12,17 @@ import { siteConfig } from "../../lib/site-config";
     <div>
       <SectionHeading eyebrow="Location" title="Come find us." />
       <RevealOnScroll client:visible wrapperClass="space-y-6 text-(--color-ink-muted)">
-        <p>{siteConfig.contact.address}</p>
+        <div>
+          <p>{siteConfig.contact.address}</p>
+          <a
+            href={siteConfig.contact.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-1 inline-block text-sm text-(--color-accent) transition-colors hover:text-(--color-accent-soft)"
+          >
+            Get Directions →
+          </a>
+        </div>
         <ul class="space-y-1 text-sm">
           {siteConfig.hours.map((h) => (
             <li class="flex justify-between gap-8 border-b border-(--color-line) py-2 max-w-xs">
@@ -27,6 +37,8 @@ import { siteConfig } from "../../lib/site-config";
       </RevealOnScroll>
     </div>
 
-    <PlaceholderImage label="Map embed placeholder" ratio="aspect-square" />
+    <a href={siteConfig.contact.mapsUrl} target="_blank" rel="noopener noreferrer" class="block">
+      <PlaceholderImage label={`Map — ${siteConfig.contact.address}`} ratio="aspect-square" />
+    </a>
   </Container>
 </section>

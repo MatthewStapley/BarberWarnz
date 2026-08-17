@@ -15,6 +15,42 @@ const {
   title = `${siteConfig.business.name} — ${siteConfig.business.tagline}`,
   description = siteConfig.business.description,
 } = Astro.props;
+
+// LocalBusiness structured data — every field here is a verified fact from
+// Booksy/Instagram (see site-config.ts). Fields we couldn't verify (phone,
+// canonical domain) are omitted rather than guessed.
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  name: siteConfig.business.name,
+  description: siteConfig.business.description,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "MEDUSA, 15 Carlton Place",
+    addressLocality: "Southampton",
+    postalCode: "SO15 2DY",
+    addressCountry: "GB",
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: siteConfig.stats.rating,
+    reviewCount: siteConfig.stats.reviewCount,
+  },
+  priceRange: "£10–£34",
+  openingHoursSpecification: siteConfig.hours
+    .filter((h) => h.time !== "Closed")
+    .map((h) => {
+      const [opens, closes] = h.time.split(" – ");
+      return {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: h.day,
+        opens,
+        closes,
+      };
+    }),
+  sameAs: siteConfig.social.map((s) => s.href),
+  url: siteConfig.booking.url,
+};
 ---
 
 <!doctype html>
@@ -33,6 +69,9 @@ const {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+
+    <!-- LocalBusiness structured data — verified facts only, see above -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <!-- Fonts: Fraunces (display/editorial) + Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

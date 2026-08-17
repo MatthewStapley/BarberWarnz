@@ -24,8 +24,11 @@ import { siteConfig } from "../../lib/site-config";
       ))}
     </RevealOnScroll>
 
-    <div class="mt-12 flex justify-center">
+    <p class="mt-6 text-center text-sm text-(--color-ink-faint)">{siteConfig.servicesNote}</p>
+
+    <div class="mt-6 flex flex-wrap justify-center gap-4">
       <Button href={siteConfig.booking.url} target="_blank">{siteConfig.booking.label}</Button>
+      <Button href={siteConfig.booking.url} target="_blank" variant="outline">Full Price List</Button>
     </div>
   </Container>
 </section>
