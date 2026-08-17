@@ -5,6 +5,10 @@ import Footer from "../components/layout/Footer.astro";
 import MobileBookingBar from "../components/layout/MobileBookingBar.astro";
 import SmoothScroll from "../components/SmoothScroll";
 import { siteConfig } from "../lib/site-config";
+import { getImage } from "astro:assets";
+import logoBadgeSource from "../assets/photos/callum_logo_badge.png";
+
+const logoBadge = await getImage({ src: logoBadgeSource, width: 120, format: "webp", quality: 90 });
 
 interface Props {
   title?: string;
@@ -89,6 +93,9 @@ const structuredData = {
       businessName={siteConfig.business.shortName}
       bookingUrl={siteConfig.booking.url}
       bookingLabel={siteConfig.booking.label}
+      logoSrc={logoBadge.src}
+      logoWidth={logoBadge.attributes.width}
+      logoHeight={logoBadge.attributes.height}
     />
 
     <main>

@@ -7,9 +7,12 @@ interface Props {
   businessName: string;
   bookingUrl: string;
   bookingLabel: string;
+  logoSrc: string;
+  logoWidth: number;
+  logoHeight: number;
 }
 
-export default function Header({ nav, businessName, bookingUrl, bookingLabel }: Props) {
+export default function Header({ nav, businessName, bookingUrl, bookingLabel, logoSrc, logoWidth, logoHeight }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -36,11 +39,18 @@ export default function Header({ nav, businessName, bookingUrl, bookingLabel }: 
         }`}
       >
       <div className="mx-auto flex h-20 max-w-(--container-max) items-center justify-between px-6 md:px-10">
-        <a
-          href="/"
-          className="font-[var(--font-display)] text-lg tracking-[0.15em] text-[var(--color-ink)] uppercase"
-        >
-          {businessName}
+        <a href="/" className="flex items-center gap-2.5">
+          <img
+            src={logoSrc}
+            width={logoWidth}
+            height={logoHeight}
+            alt=""
+            aria-hidden="true"
+            className="h-8 w-8 rounded-full"
+          />
+          <span className="font-[var(--font-display)] text-lg tracking-[0.15em] text-[var(--color-ink)] uppercase">
+            {businessName}
+          </span>
         </a>
 
         <nav className="hidden items-center gap-10 md:flex">
