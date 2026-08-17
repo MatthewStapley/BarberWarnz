@@ -29,11 +29,12 @@ export default function Header({ nav, businessName, bookingUrl, bookingLabel }: 
   }, [open]);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
-        scrolled || open ? "bg-[var(--color-bg)]/90 backdrop-blur-md" : "bg-transparent"
-      }`}
-    >
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
+          scrolled || open ? "bg-[var(--color-bg)]/90 backdrop-blur-md" : "bg-transparent"
+        }`}
+      >
       <div className="mx-auto flex h-20 max-w-(--container-max) items-center justify-between px-6 md:px-10">
         <a
           href="/"
@@ -81,6 +82,7 @@ export default function Header({ nav, businessName, bookingUrl, bookingLabel }: 
           />
         </button>
       </div>
+      </header>
 
       <AnimatePresence>
         {open && (
@@ -120,6 +122,6 @@ export default function Header({ nav, businessName, bookingUrl, bookingLabel }: 
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

@@ -14,7 +14,7 @@ export default function RevealText({ text }: Props) {
 
   return (
     <motion.span
-      class="inline"
+      className="inline"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-10% 0px" }}
@@ -24,10 +24,10 @@ export default function RevealText({ text }: Props) {
       {words.map((word, i) => (
         <span
           key={i}
-          class="inline-block overflow-hidden pb-[0.1em] align-bottom"
+          className="inline-block overflow-hidden pb-[0.1em] align-bottom"
           aria-hidden="true"
         >
-          <motion.span class="inline-block" variants={maskReveal}>
+          <motion.span className="inline-block" variants={maskReveal}>
             {word}
             {i < words.length - 1 ? " " : ""}
           </motion.span>
