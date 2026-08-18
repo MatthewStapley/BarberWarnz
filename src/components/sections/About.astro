@@ -26,13 +26,14 @@ const about = await getImage({ src: aboutSource, width: 900, format: "webp", qua
       <SectionHeading eyebrow="About" title={`Hi, I'm ${siteConfig.barber.name.split(" ")[0]}.`} />
       <RevealOnScroll client:visible>
         <p class="max-w-md text-base leading-relaxed text-(--color-ink-muted) md:text-lg">
-          I'm based at {siteConfig.contact.shortLocation} — one-to-one, no rush,
-          no queue of chairs. Just a proper conversation and a precise fade,
-          in a relaxed, private setting.
+          I'm based at {siteConfig.contact.shortLocation} — just me, one chair,
+          no rush. Good conversation, a bit of football chat if you're up
+          for it, and proper attention on getting the cut right.
         </p>
         <p class="mt-4 max-w-md text-base leading-relaxed text-(--color-ink-muted) md:text-lg">
-          It shows: {siteConfig.stats.rating} stars from {siteConfig.stats.reviewCount} Booksy
-          reviews, and a few regulars who've stuck with me for years.
+          That's really it — solid cuts, an easy atmosphere, and a lot of
+          regulars who keep coming back. {siteConfig.stats.rating} stars
+          from {siteConfig.stats.reviewCount} reviews on Booksy.
         </p>
       </RevealOnScroll>
     </div>

@@ -7,12 +7,43 @@ interface Props {
   businessName: string;
   bookingUrl: string;
   bookingLabel: string;
+  instagramUrl: string;
   logoSrc: string;
   logoWidth: number;
   logoHeight: number;
 }
 
-export default function Header({ nav, businessName, bookingUrl, bookingLabel, logoSrc, logoWidth, logoHeight }: Props) {
+// Minimal Instagram glyph — rounded square + lens + shutter dot, drawn with
+// currentColor so it inherits whatever text color/hover state wraps it.
+function InstagramGlyph({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.7}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export default function Header({
+  nav,
+  businessName,
+  bookingUrl,
+  bookingLabel,
+  instagramUrl,
+  logoSrc,
+  logoWidth,
+  logoHeight,
+}: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -63,6 +94,15 @@ export default function Header({ nav, businessName, bookingUrl, bookingLabel, lo
               {item.label}
             </a>
           ))}
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Barber Warnz on Instagram"
+            className="text-[var(--color-ink-muted)] transition-colors duration-300 hover:text-[var(--color-accent)]"
+          >
+            <InstagramGlyph className="h-5 w-5" />
+          </a>
           <a
             href={bookingUrl}
             target="_blank"
@@ -117,6 +157,19 @@ export default function Header({ nav, businessName, bookingUrl, bookingLabel, lo
                   {item.label}
                 </motion.a>
               ))}
+              <motion.a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: ease.premium, delay: 0.05 * nav.length }}
+                className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-[var(--color-line)] px-5 py-3 text-sm font-medium text-[var(--color-ink-muted)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+              >
+                <InstagramGlyph className="h-5 w-5" />
+                Follow on Instagram
+              </motion.a>
             </nav>
             <motion.a
               href={bookingUrl}

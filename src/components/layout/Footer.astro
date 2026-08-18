@@ -1,5 +1,6 @@
 ---
 import Container from "../ui/Container.astro";
+import IconInstagram from "../ui/IconInstagram.astro";
 import { siteConfig } from "../../lib/site-config";
 
 const year = new Date().getFullYear();
@@ -40,7 +41,12 @@ const year = new Date().getFullYear();
         <p class="mb-3 text-xs uppercase tracking-[0.2em] text-(--color-ink-faint)">Follow</p>
         <ul class="space-y-2 text-sm text-(--color-ink-muted)">
           {siteConfig.social.map((item) => (
-            <li><a href={item.href} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-(--color-ink)">{item.label}</a></li>
+            <li>
+              <a href={item.href} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 transition-colors hover:text-(--color-ink)">
+                <IconInstagram class="h-4 w-4" />
+                {item.label}
+              </a>
+            </li>
           ))}
         </ul>
       </div>

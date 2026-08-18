@@ -3,6 +3,9 @@ import { getImage } from "astro:assets";
 import Container from "../ui/Container.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import ParallaxImage from "../ui/ParallaxImage";
+import Button from "../ui/Button.astro";
+import IconInstagram from "../ui/IconInstagram.astro";
+import { siteConfig } from "../../lib/site-config";
 
 import result1 from "../../assets/photos/gallery-result-1.jpg";
 import result2 from "../../assets/photos/gallery-result-2.jpg";
@@ -45,6 +48,13 @@ const images = await Promise.all(
           wrapperClass={tile.span}
         />
       ))}
+    </div>
+
+    <div class="mt-10 flex justify-center md:mt-12">
+      <Button href={siteConfig.social[0].href} target="_blank" variant="outline">
+        <IconInstagram class="h-4 w-4" />
+        See More Cuts on Instagram
+      </Button>
     </div>
   </Container>
 </section>

@@ -18,7 +18,7 @@ export const siteConfig = {
       "Personalised fades, cuts and beard trims in a relaxed, one-to-one setting at MEDUSA, Southampton — rated 5.0 from 174 Booksy reviews.",
     // First-person — used for the on-page hero subtext, in Callum's own voice.
     heroSubtext:
-      "I keep it one-to-one — fades, cuts and beard trims in a relaxed, private setting at MEDUSA, Southampton. Rated 5.0 from 174 reviews on Booksy.",
+      "Proper one-to-one barbering at MEDUSA in Southampton — good cuts, relaxed chat, no rush. 5.0 stars from 174 reviews on Booksy.",
   },
 
   barber: {
