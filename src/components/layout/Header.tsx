@@ -70,21 +70,21 @@ export default function Header({
         }`}
       >
       <div className="mx-auto flex h-20 max-w-(--container-max) items-center justify-between px-6 md:px-10">
-        <a href="/" className="flex items-center gap-2.5">
+        <a href="/" className="flex shrink-0 items-center gap-2.5">
           <img
             src={logoSrc}
             width={logoWidth}
             height={logoHeight}
             alt=""
             aria-hidden="true"
-            className="h-8 w-8 rounded-full"
+            className="h-8 w-8 shrink-0 rounded-full"
           />
-          <span className="font-[var(--font-display)] text-lg tracking-[0.15em] text-[var(--color-ink)] uppercase">
+          <span className="whitespace-nowrap font-[var(--font-display)] text-sm tracking-[0.08em] text-[var(--color-ink)] uppercase sm:text-base sm:tracking-[0.1em] lg:text-lg lg:tracking-[0.15em]">
             {businessName}
           </span>
         </a>
 
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav className="hidden items-center gap-6 md:flex lg:gap-10">
           {nav.map((item) => (
             <a
               key={item.href}
