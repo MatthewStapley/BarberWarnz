@@ -1,12 +1,14 @@
 ---
 // Responsive container for an interactive Google Maps embed.
 //
-// TO ACTIVATE THE REAL MAP:
-// 1. On Google Maps, search the business address, then Share -> Embed a map.
-// 2. Copy just the `src="..."` URL out of the provided <iframe> snippet.
-// 3. Paste it into `contact.mapsEmbedUrl` in src/lib/site-config.ts.
-// That's it — this component switches from placeholder to live iframe
-// automatically once that value is set, no other code changes needed.
+// Currently using Google's no-API-key embed format (`/maps?q=...&output=embed`),
+// built straight from the verified address in site-config.ts — no key or
+// billing account needed. If a proper "Share -> Embed a map" pb= URL is
+// ever supplied instead, it can just replace `contact.mapsEmbedUrl` as-is;
+// this component doesn't care which flavour of embed URL it gets.
+//
+// Falls back to a plain text placeholder (no fake map graphic) if
+// `embedUrl` is ever unset.
 interface Props {
   address: string;
   embedUrl?: string | null;
@@ -24,7 +26,7 @@ const { address, embedUrl, class: className = "" } = Astro.props;
   {embedUrl ? (
     <iframe
       src={embedUrl}
-      class="absolute inset-0 h-full w-full"
+      class="absolute inset-0 h-full w-full grayscale-[35%] contrast-[1.05] brightness-[0.92]"
       style="border:0"
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"

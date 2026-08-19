@@ -43,9 +43,11 @@ export const siteConfig = {
     shortLocation: "MEDUSA, Southampton",
     // Google Maps search link built from the verified address above — no API key needed.
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=MEDUSA+15+Carlton+Place+Southampton+SO15+2DY",
-    // Paste the `src="..."` URL from Google Maps' Share -> Embed a map here to
-    // switch the Location section from a placeholder to a live interactive map.
-    mapsEmbedUrl: null as string | null,
+    // Live interactive embed, built from the verified address above using
+    // Google's no-API-key embed format. If a proper "Share -> Embed a map"
+    // pb= URL is supplied later, it can just replace this string as-is.
+    mapsEmbedUrl:
+      "https://www.google.com/maps?q=MEDUSA+15+Carlton+Place+Southampton+SO15+2DY&output=embed" as string | null,
   },
 
   hours: [
