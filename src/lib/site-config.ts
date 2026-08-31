@@ -15,10 +15,10 @@ export const siteConfig = {
     tagline: "Barber in Southampton",
     // Neutral/factual — used for <meta description> and social previews.
     description:
-      "Personalised fades, cuts and beard trims in a relaxed, one-to-one setting at MEDUSA, Southampton — rated 5.0 from 174 Booksy reviews.",
+      "Personalised fades, cuts and beard trims in a relaxed, one-to-one setting at MEDUSA, Southampton — rated 5.0 from 180 Booksy reviews.",
     // First-person — used for the on-page hero subtext, in Callum's own voice.
     heroSubtext:
-      "Proper one-to-one barbering at MEDUSA in Southampton — good cuts, relaxed chat, no rush. 5.0 stars from 174 reviews on Booksy.",
+      "Proper one-to-one barbering at MEDUSA in Southampton — good cuts, relaxed chat, no rush. 5.0 stars from 180 reviews on Booksy.",
   },
 
   barber: {
@@ -32,7 +32,7 @@ export const siteConfig = {
 
   stats: {
     rating: "5.0",
-    reviewCount: 174,
+    reviewCount: 180,
   },
 
   contact: {
@@ -77,27 +77,28 @@ export const siteConfig = {
     { name: "Skin Fade & Beard", duration: "45 min", price: "£34" },
     { name: "Haircut & Beard", duration: "40 min", price: "£30" },
     { name: "Restyle", duration: "40 min", price: "£30" },
-    { name: "Beard Trim", duration: "15 min", price: "£10" },
+    { name: "Beard Trim", duration: "20 min", price: "£10" },
   ],
   servicesNote: "Student and OAP pricing available — see the full list on Booksy.",
 
-  // A small curated selection of genuine Booksy reviews (verbatim quotes).
+  // A small curated selection of genuine Booksy reviews (verbatim quotes,
+  // refreshed 22 Aug 2026 — all from the most recent batch on Booksy).
   reviews: [
     {
-      quote:
-        "Top haircut from a top lad. Drink on arrival, great music on and has 10/10 football knowledge. Easy choice.",
-      author: "Kerr",
-      service: "Haircut",
-    },
-    {
-      quote: "Cut my hair for 3 years never a bad trim, top barber and top lad.",
-      author: "Evan",
+      quote: "Most consistent barber in the area — he never misses!",
+      author: "Dylan",
       service: "Skin fade",
     },
     {
-      quote: "Great trim, and Callum is a top fella. Will defo be back.",
-      author: "Matthew",
-      service: "Skin fade & Beard",
+      quote:
+        "Simple to use and quick for the booking and great cut with good chat, doubt if better in Southampton for either!",
+      author: "Alex",
+      service: "Haircut",
+    },
+    {
+      quote: "Great chat and trim. Will deffo be going back.",
+      author: "Dan",
+      service: "Student Skin Fade",
     },
   ],
 } as const;
