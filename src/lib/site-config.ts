@@ -15,10 +15,10 @@ export const siteConfig = {
     tagline: "Barber in Southampton",
     // Neutral/factual — used for <meta description> and social previews.
     description:
-      "Personalised fades, cuts and beard trims in a relaxed, one-to-one setting at MEDUSA, Southampton — rated 5.0 from 180 Booksy reviews.",
+      "Personalised fades, cuts and beard trims in a relaxed, one-to-one setting at MEDUSA, Southampton — rated 5.0 from 183 Booksy reviews.",
     // First-person — used for the on-page hero subtext, in Callum's own voice.
     heroSubtext:
-      "Proper one-to-one barbering at MEDUSA in Southampton — good cuts, relaxed chat, no rush. 5.0 stars from 180 reviews on Booksy.",
+      "Proper one-to-one barbering at MEDUSA in Southampton — good cuts, relaxed chat, no rush. 5.0 stars from 183 reviews on Booksy.",
   },
 
   barber: {
@@ -32,7 +32,7 @@ export const siteConfig = {
 
   stats: {
     rating: "5.0",
-    reviewCount: 180,
+    reviewCount: 183,
   },
 
   contact: {
@@ -82,8 +82,13 @@ export const siteConfig = {
   servicesNote: "Student and OAP pricing available — see the full list on Booksy.",
 
   // A small curated selection of genuine Booksy reviews (verbatim quotes,
-  // refreshed 22 Aug 2026 — all from the most recent batch on Booksy).
+  // refreshed 24 Sep 2026 from the most recent batch on Booksy).
   reviews: [
+    {
+      quote: "10/10 service from Cal.",
+      author: "Jonny",
+      service: "Skin fade",
+    },
     {
       quote: "Most consistent barber in the area — he never misses!",
       author: "Dylan",
@@ -94,11 +99,6 @@ export const siteConfig = {
         "Simple to use and quick for the booking and great cut with good chat, doubt if better in Southampton for either!",
       author: "Alex",
       service: "Haircut",
-    },
-    {
-      quote: "Great chat and trim. Will deffo be going back.",
-      author: "Dan",
-      service: "Student Skin Fade",
     },
   ],
 } as const;
