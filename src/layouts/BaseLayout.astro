@@ -63,6 +63,8 @@ const structuredData = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <!-- Flag JS early so reveal styles only hide content when they can show it again -->
+    <script is:inline>document.documentElement.classList.add("js");</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <title>{title}</title>
@@ -105,5 +107,39 @@ const structuredData = {
 
     <Footer />
     <MobileBookingBar />
+
+    <!--
+      Scroll reveals: one observer for every [data-reveal], [data-reveal-stagger]
+      and .cut-line on the page. Adds .is-in once, then stops watching.
+      Reduced-motion users (and old browsers) get everything shown immediately.
+    -->
+    <script is:inline>
+      (function () {
+        var els = document.querySelectorAll("[data-reveal], [data-reveal-stagger], .cut-line");
+        els.forEach(function (el) {
+          if (el.hasAttribute("data-reveal-stagger")) {
+            Array.prototype.forEach.call(el.children, function (child, i) {
+              child.style.setProperty("--i", i);
+            });
+          }
+        });
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce || !("IntersectionObserver" in window)) {
+          els.forEach(function (el) { el.classList.add("is-in"); });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-in");
+              io.unobserve(entry.target);
+            });
+          },
+          { rootMargin: "0px 0px -12% 0px", threshold: 0.01 }
+        );
+        els.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
   </body>
 </html>

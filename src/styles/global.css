@@ -62,3 +62,167 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ------------------------------------------------------------------
+   Scroll reveals (V2)
+   Pure CSS + one tiny IntersectionObserver (see BaseLayout). Replaces
+   per-block React islands so static content costs no hydration.
+   Content is only hidden once `html.js` is set, so it never disappears
+   if JS fails to run.
+   ------------------------------------------------------------------ */
+html.js [data-reveal],
+html.js [data-reveal-stagger] > * {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 0.9s var(--ease-premium),
+    transform 1.1s var(--ease-premium);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.js [data-reveal-stagger] > * {
+  transition-delay: calc(var(--reveal-delay, 0ms) + var(--i, 0) * 85ms);
+}
+
+html.js [data-reveal].is-in,
+html.js [data-reveal-stagger].is-in > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* Eyebrow hairline — a short accent rule that draws in ahead of the label */
+.eyebrow-rule {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1s var(--ease-premium) 0.15s;
+}
+html:not(.js) .eyebrow-rule,
+.is-in .eyebrow-rule {
+  transform: scaleX(1);
+}
+
+/* ------------------------------------------------------------------
+   Cut line — the one barber motif on the site. A hairline divider
+   that "cuts" across left→right with a small line-art pair of shears
+   on its leading edge, which gives a single quiet snip on arrival.
+   ------------------------------------------------------------------ */
+.cut-line {
+  position: relative;
+  height: 14px;
+  overflow: hidden;
+}
+.cut-line__track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+.cut-line__rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-line) 18%, var(--color-line) 100%);
+}
+.cut-line__shears {
+  flex: none;
+  width: 16px;
+  height: 14px;
+  margin-left: 8px;
+  color: var(--color-ink-faint);
+  opacity: 0.75;
+}
+.cut-line__blade {
+  transform-box: view-box;
+  transform-origin: 11.5px 12px;
+}
+html.js .cut-line__track {
+  transform: translate3d(-100%, 0, 0);
+  transition: transform 1.6s var(--ease-premium);
+}
+html.js .cut-line.is-in .cut-line__track {
+  transform: none;
+}
+.cut-line.is-in .cut-line__blade--a {
+  animation: snip-a 0.7s var(--ease-premium) 1.25s 1;
+}
+.cut-line.is-in .cut-line__blade--b {
+  animation: snip-b 0.7s var(--ease-premium) 1.25s 1;
+}
+@keyframes snip-a {
+  40% { transform: rotate(-9deg); }
+}
+@keyframes snip-b {
+  40% { transform: rotate(9deg); }
+}
+
+/* ------------------------------------------------------------------
+   Hero entrance — sequenced on load (no observer needed above the fold)
+   ------------------------------------------------------------------ */
+@keyframes rise-in {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.hero-rise {
+  animation: rise-in 1.1s var(--ease-premium) both;
+  animation-delay: var(--d, 0ms);
+}
+.hero-fade {
+  animation: fade-in 2s var(--ease-premium) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Scroll cue — thin rule with a slow travelling segment */
+@keyframes cue {
+  0% { transform: translate3d(0, -100%, 0); }
+  100% { transform: translate3d(0, 100%, 0); }
+}
+.scroll-cue__seg {
+  animation: cue 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* ------------------------------------------------------------------
+   Buttons — soft sheen on the solid (booking) button + arrow nudge
+   ------------------------------------------------------------------ */
+.btn-sheen {
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.22) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 0.9s var(--ease-premium);
+}
+.btn-sheen:hover::after {
+  transform: translateX(120%);
+}
+.btn-arrow {
+  transition: transform var(--duration-fast) var(--ease-premium);
+}
+.group:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* Reduced motion: show everything in its final state, no travel */
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal],
+  html.js [data-reveal-stagger] > *,
+  html.js .cut-line__track,
+  .eyebrow-rule {
+    opacity: 1;
+    transform: none;
+  }
+  .scroll-cue__seg,
+  .cut-line__blade {
+    animation: none !important;
+  }
+  .btn-sheen::after {
+    display: none;
+  }
+}

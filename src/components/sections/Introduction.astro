@@ -2,7 +2,6 @@
 import { getImage } from "astro:assets";
 import Container from "../ui/Container.astro";
 import RevealText from "../ui/RevealText";
-import RevealOnScroll from "../ui/RevealOnScroll";
 import ParallaxImage from "../ui/ParallaxImage";
 import introSource1 from "../../assets/photos/intro-1.jpg";
 import introSource2 from "../../assets/photos/intro-2.jpg";
@@ -19,13 +18,13 @@ const [featureA, featureB] = await Promise.all([
       <h2 class="font-(family-name:--font-display) text-4xl leading-[1.05] text-(--color-ink) sm:text-5xl md:text-6xl">
         <RevealText text="Every cut is a small act of precision." client:visible />
       </h2>
-      <RevealOnScroll client:visible wrapperClass="mt-6">
+      <div data-reveal class="mt-6">
         <p class="max-w-md text-base leading-relaxed text-(--color-ink-muted) md:text-lg">
           It's just me and one chair — no rush, no queue behind you. I take
           the time to get the details right, and you'll usually get a laugh
           out of it too. A proper haircut, without the conveyor-belt feeling.
         </p>
-      </RevealOnScroll>
+      </div>
     </div>
 
     <div class="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-12 md:mt-20 md:gap-8">
@@ -46,6 +45,7 @@ const [featureA, featureB] = await Promise.all([
         alt="Finished haircut detail at Barber Warnz"
         ratio="aspect-[4/5]"
         wrapperClass="sm:col-span-5 sm:translate-y-10"
+        delay={0.15}
       />
     </div>
   </Container>

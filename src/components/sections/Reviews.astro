@@ -1,34 +1,134 @@
 ---
 import Container from "../ui/Container.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
-import RevealOnScroll from "../ui/RevealOnScroll";
 import Button from "../ui/Button.astro";
+import Stars from "../ui/Stars.astro";
+import CutLine from "../ui/CutLine.astro";
 import { siteConfig } from "../../lib/site-config";
+import { getReviewSummary, getSourceLabel } from "../../lib/reviews";
+
+const summary = getReviewSummary();
+const featured = siteConfig.reviews.find((r) => r.featured);
+const rest = siteConfig.reviews.filter((r) => r !== featured);
+const primarySource = siteConfig.reviewSources[0];
 ---
 
-<section id="reviews" class="border-t border-(--color-line) py-(--spacing-section) md:py-(--spacing-section-lg)">
-  <Container>
-    <SectionHeading eyebrow="Reviews" title="Trusted by regulars." />
-    <p class="-mt-8 mb-12 text-sm text-(--color-ink-muted) md:-mt-10 md:mb-16">
-      <span class="text-(--color-accent)">★ {siteConfig.stats.rating}</span>
-      {" "}— {siteConfig.stats.reviewCount} reviews on Booksy
-    </p>
+<section id="reviews" class="pb-(--spacing-section) md:pb-(--spacing-section-lg)">
+  <CutLine />
 
-    <RevealOnScroll client:visible stagger wrapperClass="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-      {siteConfig.reviews.map((review) => (
-        <div class="rounded-sm border border-(--color-line) bg-(--color-bg-elevated) p-8">
-          <p class="text-(--color-accent)">★★★★★</p>
-          <p class="mt-4 text-base leading-relaxed text-(--color-ink-muted)">
-            "{review.quote}"
-          </p>
-          <p class="mt-6 text-sm text-(--color-ink-faint)">— {review.author}, {review.service}</p>
+  <Container class="pt-(--spacing-section) md:pt-(--spacing-section-lg)">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+      <!-- Left: heading + rating summary -->
+      <div class="lg:col-span-5">
+        <SectionHeading eyebrow="Reviews" title="Trusted by regulars." />
+
+        <div data-reveal>
+          <div class="flex items-end gap-5">
+            <p class="font-(family-name:--font-display) text-7xl leading-[0.85] text-(--color-ink) md:text-8xl">
+              {summary.ratingLabel}
+            </p>
+            <div class="pb-1">
+              <Stars rating={summary.rating} class="h-4 w-4" />
+              <p class="mt-2 text-sm text-(--color-ink-muted)">
+                from {summary.total} reviews
+              </p>
+            </div>
+          </div>
+
+          <!-- One row per verified source — Google slots in here once added to site-config -->
+          <ul class="mt-8 max-w-sm border-t border-(--color-line)">
+            {summary.sources.map((source) => (
+              <li>
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-center justify-between gap-4 border-b border-(--color-line) py-3.5 text-sm transition-colors duration-(--duration-fast) hover:text-(--color-ink)"
+                >
+                  <span class="flex items-center gap-3">
+                    <span class="rounded-full border border-(--color-line) px-2.5 py-0.5 text-[0.7rem] font-medium uppercase tracking-[0.14em] text-(--color-ink-muted) transition-colors duration-(--duration-fast) group-hover:border-(--color-accent)/60 group-hover:text-(--color-ink)">
+                      {source.label}
+                    </span>
+                    <span class="text-(--color-ink-muted)">
+                      <span class="text-(--color-ink)">{source.rating.toFixed(1)}</span> · {source.count} reviews
+                    </span>
+                  </span>
+                  <span class="flex items-center gap-1.5 text-xs text-(--color-ink-faint) transition-colors duration-(--duration-fast) group-hover:text-(--color-accent)">
+                    Read
+                    <svg class="btn-arrow h-3 w-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M5 11 11 5M6 5h5v5" />
+                    </svg>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-8">
+            <p class="mb-3 text-xs uppercase tracking-[0.2em] text-(--color-ink-faint)">What regulars mention</p>
+            <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-(--color-ink-muted)">
+              {siteConfig.reviewThemes.map((theme) => (
+                <li class="flex items-center gap-2">
+                  <span class="h-1 w-1 rounded-full bg-(--color-accent)" aria-hidden="true"></span>
+                  {theme}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      ))}
-    </RevealOnScroll>
+      </div>
 
-    <div class="mt-12 flex justify-center">
-      <Button href={siteConfig.booking.url} target="_blank" variant="outline">
-        Read All {siteConfig.stats.reviewCount} Reviews
+      <!-- Right: featured pull-quote + supporting cards -->
+      <div class="lg:col-span-7 lg:pt-4">
+        {featured && (
+          <figure data-reveal class="relative border-l border-(--color-accent)/60 pl-6 md:pl-10">
+            <span
+              class="pointer-events-none absolute -top-8 left-4 select-none font-(family-name:--font-display) text-[7rem] leading-none text-(--color-accent)/20 md:-top-12 md:left-7 md:text-[9rem]"
+              aria-hidden="true">&ldquo;</span>
+            <blockquote class="relative font-(family-name:--font-display) text-3xl leading-[1.15] text-(--color-ink) sm:text-4xl md:text-[2.75rem]">
+              {featured.quote}
+            </blockquote>
+            <figcaption class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-(--color-ink-muted)">
+              <Stars rating={5} />
+              <span>{featured.author} · {featured.service}</span>
+              <span class="text-(--color-ink-faint)">via {getSourceLabel(featured.source)}</span>
+            </figcaption>
+          </figure>
+        )}
+
+        <div data-reveal-stagger class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-14 md:gap-6 lg:grid-cols-1 xl:grid-cols-2">
+          {rest.map((review) => (
+            <figure class="flex flex-col justify-between rounded-sm border border-(--color-line) bg-(--color-bg-elevated) p-7 transition-[border-color,transform] duration-500 ease-(--ease-premium) hover:-translate-y-0.5 hover:border-(--color-accent)/40 md:p-8">
+              <div>
+                <Stars rating={5} />
+                <blockquote class="mt-5 text-base leading-relaxed text-(--color-ink)/85">
+                  &ldquo;{review.quote}&rdquo;
+                </blockquote>
+              </div>
+              <figcaption class="mt-8 flex items-center justify-between gap-4 border-t border-(--color-line) pt-5">
+                <span class="flex items-center gap-3">
+                  <span class="flex h-8 w-8 items-center justify-center rounded-full bg-(--color-bg) font-(family-name:--font-display) text-sm text-(--color-accent) ring-1 ring-(--color-line)" aria-hidden="true">
+                    {review.author.charAt(0)}
+                  </span>
+                  <span class="whitespace-nowrap text-sm">
+                    <span class="block text-(--color-ink)">{review.author}</span>
+                    <span class="block text-(--color-ink-faint)">{review.service}</span>
+                  </span>
+                </span>
+                <span class="rounded-full border border-(--color-line) px-2.5 py-0.5 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-(--color-ink-faint)">
+                  {getSourceLabel(review.source)}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div data-reveal class="mt-14 flex flex-wrap items-center justify-center gap-4 md:mt-20">
+      <Button href={siteConfig.booking.url} target="_blank">{siteConfig.booking.label}</Button>
+      <Button href={primarySource.url} target="_blank" variant="outline">
+        Read All {primarySource.count} on {primarySource.label}
       </Button>
     </div>
   </Container>

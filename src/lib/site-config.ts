@@ -81,24 +81,52 @@ export const siteConfig = {
   ],
   servicesNote: "Student and OAP pricing available — see the full list on Booksy.",
 
+  // Where reviews live. Each source renders its own rating row in the
+  // Reviews section, and the headline figure is the count-weighted average
+  // of every source listed here — so only add a source with real, verified
+  // numbers. Google is intentionally absent until its rating/count are
+  // confirmed; to add it, append e.g.:
+  //   { id: "google", label: "Google", rating: 4.9, count: 42, url: "https://g.page/r/..." },
+  // and tag any Google quotes below with source: "google".
+  reviewSources: [
+    {
+      id: "booksy",
+      label: "Booksy",
+      rating: 5.0,
+      count: 183,
+      url: "https://booksy.com/en-gb/133690_barber-warnz_barber_794909_southampton#ba_s=sr_1",
+    },
+  ],
+
   // A small curated selection of genuine Booksy reviews (verbatim quotes,
   // refreshed 24 Sep 2026 from the most recent batch on Booksy).
+  // `featured` gets the large pull-quote treatment — keep it to one.
   reviews: [
-    {
-      quote: "10/10 service from Cal.",
-      author: "Jonny",
-      service: "Skin fade",
-    },
     {
       quote: "Most consistent barber in the area — he never misses!",
       author: "Dylan",
       service: "Skin fade",
+      source: "booksy",
+      featured: true,
     },
     {
       quote:
         "Simple to use and quick for the booking and great cut with good chat, doubt if better in Southampton for either!",
       author: "Alex",
       service: "Haircut",
+      source: "booksy",
+      featured: false,
+    },
+    {
+      quote: "10/10 service from Cal.",
+      author: "Jonny",
+      service: "Skin fade",
+      source: "booksy",
+      featured: false,
     },
   ],
+
+  // Recurring themes, each lifted from the genuine reviews above —
+  // shown as a quiet "what regulars mention" line, not as new claims.
+  reviewThemes: ["Consistent every visit", "Good chat in the chair", "Quick, easy booking"],
 } as const;

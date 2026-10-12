@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { maskReveal, staggerContainer } from "../../lib/motion";
 
 interface Props {
@@ -11,6 +11,9 @@ interface Props {
 // slides up into place. Used for hero + section headings.
 export default function RevealText({ text }: Props) {
   const words = text.split(" ");
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) return <span>{text}</span>;
 
   return (
     <motion.span
@@ -18,7 +21,7 @@ export default function RevealText({ text }: Props) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-10% 0px" }}
-      variants={staggerContainer(0.06)}
+      variants={staggerContainer(0.07)}
       aria-label={text}
     >
       {words.map((word, i) => (
@@ -27,7 +30,7 @@ export default function RevealText({ text }: Props) {
           className="inline-block overflow-hidden pb-[0.1em] align-bottom"
           aria-hidden="true"
         >
-          <motion.span className="inline-block" variants={maskReveal}>
+          <motion.span className="inline-block origin-bottom-left" variants={maskReveal}>
             {word}
             {i < words.length - 1 ? " " : ""}
           </motion.span>

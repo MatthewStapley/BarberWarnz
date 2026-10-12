@@ -36,11 +36,14 @@ export const fadeIn: Variants = {
   },
 };
 
+// Words rise out of their mask with a whisper of rotation that settles
+// flat — reads as "set in place" rather than a plain slide.
 export const maskReveal: Variants = {
-  hidden: { y: "110%" },
+  hidden: { y: "110%", rotate: 2.5 },
   visible: {
     y: "0%",
-    transition: transition.premium(duration.slow),
+    rotate: 0,
+    transition: transition.premium(1.05),
   },
 };
 

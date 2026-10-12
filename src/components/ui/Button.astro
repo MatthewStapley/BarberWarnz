@@ -4,15 +4,17 @@ interface Props {
   variant?: "solid" | "outline";
   class?: string;
   target?: string;
+  /** Trailing arrow that nudges on hover — on by default for the solid (booking) button */
+  arrow?: boolean;
 }
-const { href, variant = "solid", class: className = "", target } = Astro.props;
+const { href, variant = "solid", class: className = "", target, arrow = variant === "solid" } = Astro.props;
 
 const base =
-  "group relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium tracking-wide transition-all duration-(--duration-fast) ease-(--ease-premium)";
+  "group relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium tracking-wide transition-all duration-(--duration-fast) ease-(--ease-premium) active:scale-[0.98]";
 
 const styles = {
   solid:
-    "bg-(--color-accent) text-(--color-bg) hover:bg-(--color-accent-soft)",
+    "btn-sheen bg-(--color-accent) text-(--color-bg) shadow-[0_8px_30px_-12px_rgb(184_103_47/0.55)] hover:-translate-y-px hover:bg-(--color-accent-soft) hover:shadow-[0_14px_40px_-14px_rgb(216_139_79/0.7)]",
   outline:
     "border border-(--color-line) text-(--color-ink) hover:border-(--color-accent) hover:text-(--color-accent)",
 };
@@ -20,4 +22,9 @@ const styles = {
 
 <a href={href} target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined} class:list={[base, styles[variant], className]}>
   <slot />
+  {arrow && (
+    <svg class="btn-arrow h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 8h10M9 4l4 4-4 4" />
+    </svg>
+  )}
 </a>

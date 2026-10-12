@@ -12,7 +12,14 @@ const { eyebrow, title, align = "left", class: className = "" } = Astro.props;
 
 <div class:list={["mb-12 md:mb-16", align === "center" ? "text-center" : "text-left", className]}>
   {eyebrow && (
-    <p class="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-(--color-accent)">
+    <p
+      data-reveal
+      class:list={[
+        "mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-(--color-accent)",
+        align === "center" && "justify-center",
+      ]}
+    >
+      <span class="eyebrow-rule h-px w-6 bg-(--color-accent)" aria-hidden="true"></span>
       {eyebrow}
     </p>
   )}

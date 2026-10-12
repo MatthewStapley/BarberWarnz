@@ -37,8 +37,8 @@ const logoMark = await getImage({
 
     {/* Barber Warnz mark blended into the photo, behind the copy */}
     <div
-      class="pointer-events-none absolute -top-[8%] -right-[18%] h-[65%] w-[85%] opacity-50 mix-blend-screen md:-top-[10%] md:right-[-8%] md:h-[85%] md:w-[55%]"
-      style="mask-image: radial-gradient(circle at 60% 40%, black 0%, black 30%, transparent 72%); -webkit-mask-image: radial-gradient(circle at 60% 40%, black 0%, black 30%, transparent 72%);"
+      class="hero-fade pointer-events-none absolute -top-[8%] -right-[18%] h-[65%] w-[85%] opacity-50 mix-blend-screen md:-top-[10%] md:right-[-8%] md:h-[85%] md:w-[55%]"
+      style="mask-image: radial-gradient(circle at 60% 40%, black 0%, black 30%, transparent 72%); -webkit-mask-image: radial-gradient(circle at 60% 40%, black 0%, black 30%, transparent 72%); --d: 400ms;"
     >
       <img src={logoMark.src} width={logoMark.attributes.width} height={logoMark.attributes.height} alt="" aria-hidden="true" class="h-full w-full object-contain" />
     </div>
@@ -48,18 +48,27 @@ const logoMark = await getImage({
   </div>
 
   <div class="relative mx-auto w-full max-w-(--container-max) px-6 pb-20 md:px-10 md:pb-28">
-    <p class="mb-5 text-xs font-medium uppercase tracking-[0.3em] text-(--color-accent)">
+    <p class="hero-rise mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-(--color-accent)" style="--d: 150ms">
+      <span class="h-px w-6 bg-(--color-accent)" aria-hidden="true"></span>
       {siteConfig.contact.shortLocation}
     </p>
     <h1 class="max-w-3xl font-(family-name:--font-display) text-5xl leading-[1.02] text-(--color-ink) sm:text-6xl md:text-7xl lg:text-8xl">
       <RevealText text={siteConfig.business.name} client:visible />
     </h1>
-    <p class="mt-6 max-w-md text-base text-(--color-ink-muted) md:text-lg">
+    <p class="hero-rise mt-6 max-w-md text-base text-(--color-ink-muted) md:text-lg" style="--d: 550ms">
       {siteConfig.business.heroSubtext}
     </p>
-    <div class="mt-9 flex flex-wrap gap-4">
+    <div class="hero-rise mt-9 flex flex-wrap gap-4" style="--d: 700ms">
       <Button href={siteConfig.booking.url} target="_blank">{siteConfig.booking.label}</Button>
       <Button href="#services" variant="outline">View Services</Button>
     </div>
+  </div>
+
+  <!-- Scroll cue (desktop only) — a hairline with a slow travelling segment -->
+  <div class="hero-fade pointer-events-none absolute right-10 bottom-28 hidden flex-col items-center gap-4 md:flex" style="--d: 1200ms" aria-hidden="true">
+    <span class="text-[0.65rem] uppercase tracking-[0.3em] text-(--color-ink-faint) [writing-mode:vertical-rl]">Scroll</span>
+    <span class="relative block h-14 w-px overflow-hidden bg-(--color-line)">
+      <span class="scroll-cue__seg absolute inset-x-0 top-0 h-1/2 bg-(--color-ink-muted)"></span>
+    </span>
   </div>
 </section>

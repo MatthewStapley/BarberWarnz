@@ -2,27 +2,45 @@
 import Container from "../ui/Container.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import Button from "../ui/Button.astro";
-import RevealOnScroll from "../ui/RevealOnScroll";
+import CutLine from "../ui/CutLine.astro";
 import { siteConfig } from "../../lib/site-config";
 ---
 
-<section id="services" class="border-t border-(--color-line) py-(--spacing-section) md:py-(--spacing-section-lg)">
-  <Container>
+<section id="services" class="pb-(--spacing-section) md:pb-(--spacing-section-lg)">
+  <CutLine />
+
+  <Container class="pt-(--spacing-section) md:pt-(--spacing-section-lg)">
     <SectionHeading eyebrow="Services" title="What I do." />
 
-    <RevealOnScroll client:visible stagger wrapperClass="divide-y divide-(--color-line) border-y border-(--color-line)">
+    <!-- Each row books straight through Booksy -->
+    <div data-reveal-stagger class="divide-y divide-(--color-line) border-y border-(--color-line)">
       {siteConfig.services.map((service) => (
-        <div class="flex items-center justify-between gap-6 py-6">
-          <div>
-            <p class="font-(family-name:--font-display) text-xl text-(--color-ink) sm:text-2xl">
+        <a
+          href={siteConfig.booking.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Book ${service.name}, ${service.duration}, ${service.price}`}
+          class="group relative isolate flex items-center justify-between gap-6 py-6"
+        >
+          <span
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-y-0 -inset-x-4 -z-10 origin-left scale-x-[0.98] rounded-sm bg-(--color-bg-elevated) opacity-0 transition-[opacity,transform] duration-500 ease-(--ease-premium) group-hover:scale-x-100 group-hover:opacity-100 md:-inset-x-6"
+          ></span>
+          <span class="transition-transform duration-500 ease-(--ease-premium) group-hover:translate-x-1.5">
+            <span class="block font-(family-name:--font-display) text-xl text-(--color-ink) sm:text-2xl">
               {service.name}
-            </p>
-            <p class="mt-1 text-sm text-(--color-ink-faint)">{service.duration}</p>
-          </div>
-          <p class="shrink-0 text-lg text-(--color-accent)">{service.price}</p>
-        </div>
+            </span>
+            <span class="mt-1 block text-sm text-(--color-ink-faint)">{service.duration}</span>
+          </span>
+          <span class="flex shrink-0 items-center gap-4">
+            <span class="hidden translate-x-2 text-xs uppercase tracking-[0.2em] text-(--color-ink-muted) opacity-0 transition-[opacity,transform] duration-500 ease-(--ease-premium) group-hover:translate-x-0 group-hover:opacity-100 sm:inline">
+              Book
+            </span>
+            <span class="text-lg text-(--color-accent) transition-colors duration-(--duration-fast) group-hover:text-(--color-accent-soft)">{service.price}</span>
+          </span>
+        </a>
       ))}
-    </RevealOnScroll>
+    </div>
 
     <p class="mt-6 text-center text-sm text-(--color-ink-faint)">{siteConfig.servicesNote}</p>
 

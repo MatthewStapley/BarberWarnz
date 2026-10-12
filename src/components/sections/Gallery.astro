@@ -27,6 +27,8 @@ const tiles = [
   { source: process4, alt: "Close detail of clipper work at the temple", ratio: "aspect-[3/4]", span: "sm:translate-y-8" },
 ];
 
+const instagramHandle = new URL(siteConfig.social[0].href).pathname.replaceAll("/", "");
+
 const images = await Promise.all(
   tiles.map((tile) => getImage({ src: tile.source, width: 640, format: "webp", quality: 80 }))
 );
@@ -34,7 +36,19 @@ const images = await Promise.all(
 
 <section id="gallery" class="py-(--spacing-section) md:py-(--spacing-section-lg)">
   <Container>
-    <SectionHeading eyebrow="Gallery" title="The work speaks first." />
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <SectionHeading eyebrow="Gallery" title="The work speaks first." />
+      <a
+        data-reveal
+        href={siteConfig.social[0].href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group -mt-6 mb-12 inline-flex items-center gap-2 self-start text-sm text-(--color-ink-muted) transition-colors duration-(--duration-fast) hover:text-(--color-ink) md:mt-0 md:mb-16 md:self-auto"
+      >
+        <IconInstagram class="h-4 w-4 transition-colors duration-(--duration-fast) group-hover:text-(--color-accent)" />
+        @{instagramHandle}
+      </a>
+    </div>
 
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
       {tiles.map((tile, i) => (
@@ -46,12 +60,14 @@ const images = await Promise.all(
           alt={tile.alt}
           ratio={tile.ratio}
           wrapperClass={tile.span}
+          delay={(i % 4) * 0.09}
+          hoverZoom
         />
       ))}
     </div>
 
-    <div class="mt-10 flex justify-center md:mt-12">
-      <Button href={siteConfig.social[0].href} target="_blank" variant="outline">
+    <div data-reveal class="mt-14 flex justify-center md:mt-16">
+      <Button href={siteConfig.social[0].href} target="_blank" variant="outline" arrow>
         <IconInstagram class="h-4 w-4" />
         See More Cuts on Instagram
       </Button>

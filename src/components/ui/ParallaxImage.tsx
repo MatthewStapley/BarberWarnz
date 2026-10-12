@@ -1,4 +1,5 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ease } from "../../lib/motion";
 import { useRef } from "react";
 
 interface Props {
@@ -18,6 +19,12 @@ interface Props {
   bare?: boolean;
   /** CSS object-position for the crop focal point, e.g. "center 30%" */
   focalPoint?: string;
+  /** Unveil the frame bottom-up the first time it scrolls into view */
+  reveal?: boolean;
+  /** Seconds to wait before the reveal — used to stagger grids */
+  delay?: number;
+  /** Gentle zoom on hover (gallery tiles) */
+  hoverZoom?: boolean;
 }
 
 // Subtle scroll-linked scale/translate on an image (or placeholder) —
@@ -39,8 +46,12 @@ export default function ParallaxImage({
   priority = false,
   bare = false,
   focalPoint,
+  reveal = true,
+  delay = 0,
+  hoverZoom = false,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -49,10 +60,18 @@ export default function ParallaxImage({
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1, 1.08]);
   const y = useTransform(scrollYProgress, [0, 1], ["-3%", "3%"]);
   const frame = bare ? "" : "rounded-sm border border-[var(--color-line)]";
+  const shouldReveal = reveal && !priority && !reduceMotion;
 
   return (
-    <div ref={ref} className={`overflow-hidden ${frame} ${ratio} ${wrapperClass ?? ""}`}>
-      <motion.div style={{ scale, y }} className="h-full w-full">
+    <motion.div
+      ref={ref}
+      className={`group overflow-hidden ${frame} ${ratio} ${wrapperClass ?? ""}`}
+      initial={shouldReveal ? { clipPath: "inset(100% 0% 0% 0%)" } : false}
+      whileInView={shouldReveal ? { clipPath: "inset(0% 0% 0% 0%)" } : undefined}
+      viewport={{ once: true, margin: "-8% 0px" }}
+      transition={{ duration: 1.3, ease: ease.premium, delay }}
+    >
+      <motion.div style={reduceMotion ? undefined : { scale, y }} className="h-full w-full">
         {src ? (
           <img
             src={src}
@@ -65,7 +84,11 @@ export default function ParallaxImage({
             fetchPriority={priority ? "high" : undefined}
             decoding="async"
             style={focalPoint ? { objectPosition: focalPoint } : undefined}
-            className="h-full w-full object-cover"
+            className={`h-full w-full object-cover ${
+              hoverZoom
+                ? "transition-transform duration-[1200ms] ease-[var(--ease-premium)] group-hover:scale-[1.045]"
+                : ""
+            }`}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg)]">
@@ -75,6 +98,6 @@ export default function ParallaxImage({
           </div>
         )}
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

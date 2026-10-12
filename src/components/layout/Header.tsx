@@ -89,9 +89,13 @@ export default function Header({
             <a
               key={item.href}
               href={item.href}
-              className="text-sm tracking-wide text-[var(--color-ink-muted)] transition-colors duration-300 hover:text-[var(--color-ink)]"
+              className="group relative py-1 text-sm tracking-wide text-[var(--color-ink-muted)] transition-colors duration-300 hover:text-[var(--color-ink)]"
             >
               {item.label}
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-[var(--color-accent)] transition-transform duration-500 ease-[var(--ease-premium)] group-hover:scale-x-100"
+              />
             </a>
           ))}
           <a
@@ -107,7 +111,7 @@ export default function Header({
             href={bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-[var(--color-accent)] px-6 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-colors duration-300 hover:bg-[var(--color-accent-soft)]"
+            className="btn-sheen relative rounded-full bg-[var(--color-accent)] px-6 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-[background-color,transform] duration-300 hover:-translate-y-px hover:bg-[var(--color-accent-soft)] active:scale-[0.98]"
           >
             {bookingLabel}
           </a>
